@@ -1,9 +1,10 @@
 const express=require('express');
 const router=express.Router()
-const course=require('./course')
+const genres=require('./genres')
 
 
-router.use('/course',course)
+
+router.use('/genres',genres)
 
 
 module.exports=router
