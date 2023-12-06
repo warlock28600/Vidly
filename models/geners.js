@@ -11,12 +11,12 @@ const generSchema=new mongoose.Schema({
   
   const Gener=mongoose.model('Gener',generSchema)
 
-function validateGener(gener){
-    const schema={
+function  validateGener(gener){
+    const schema= Joi.object({
         name:Joi.string().required().min(5).max(25)
-    };
+    })
 
-    return schema.validate(gener)
+    return   schema.validate(gener)
 }
 
 
