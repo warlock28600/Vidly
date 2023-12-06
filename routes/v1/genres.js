@@ -1,10 +1,6 @@
 const express = require("express");
 const {Gener,validate}=require('../../models/geners')
 const router = express.Router();
-const mongoose=require('mongoose')
-mongoose.connect('mongodb://127.0.0.1/Vidly')
-.then(()=>{console.log('connected to database....')})
-.catch(err=>{console.error('could not connect to database',err)})
 
 router.use(express.json());
 
