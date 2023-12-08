@@ -10,23 +10,26 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-  // if (!genre) {
-  //   res.status(400).send(`genre with id ${req.params.id} dose not exists`);
-  // }
-  // res.status(200).send(genre);
-});
-
-router.post("/", (req, res) => {
-  const gener = {
-    id: genres.length + 1,
-    name: req.body.name,
-  };
-
-  genres.push(gener);
+  const gener = await Gener.findById(req.params.id);
+  if (!gener) {
+    res.status(400).send(`the gener with id ${req.params.id} dose not exists`);
+  }
   res.status(200).send(gener);
 });
 
-router.put("/:id",async (req, res) => {
+router.post("/", async (req, res) => {
+  const { error } = validate(req.body);
+  if (error) {
+    res.send(error.message);
+  }
+  let genre = new Gener({
+    name: req.body.name,
+  });
+  gener = await genre.save();
+  res.status(200).send(gener);
+});
+
+router.put("/:id", async (req, res) => {
   const { error } = validate(req.body);
   if (error) {
     res.send(error.message);
@@ -40,6 +43,14 @@ router.put("/:id",async (req, res) => {
     res.status(400).send(`genre with id ${req.params.id} dose not exists`);
   }
   res.status(200).send(genre);
+});
+
+router.delete("/:id", async (req, res) => {
+  const gener = await Gener.findByIdAndDelete(req.params.id);
+  if (!gener) {
+    res.status(400).send(`genre with id ${req.params.id} dose not exists`);
+  }
+  res.send(gener);
 });
 
 module.exports = router;
