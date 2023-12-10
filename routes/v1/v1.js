@@ -6,7 +6,7 @@ const person=require('./person')
 
 
 router.use('/genres',genres)
-router.use('/person',genres)
+router.use('/person', person)
 
 
 module.exports=router
