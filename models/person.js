@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Joi = require('joi')
+const mongoose = require('mongoose');
+const Joi = require('joi');
 
 const personSchema = new mongoose.Schema({
     FirstName: {
@@ -34,12 +34,18 @@ const personSchema = new mongoose.Schema({
         minLength: 10,
         maxLength: 10
     },
-    Email:{
-        type:String,
+    Email: {
+        type: String,
+    },
+    GenderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Gender',
+        required: true
     }
-})
 
-const Person = mongoose.model('Person', personSchema)
+});
+
+const Person = mongoose.model('Person', personSchema);
 
 
 function validatePerson(gener) {
@@ -49,12 +55,13 @@ function validatePerson(gener) {
         FatherName: Joi.string(),
         Mobile: Joi.string().min(11).max(11),
         NationalCode: Joi.string().min(10).max(10),
-        Email: Joi.string()
-    })
+        Email: Joi.string(),
+        GenderId: Joi.any()
+    });
 
-    return schema.validate(gener)
+    return schema.validate(gener);
 }
 
 
-exports.Person = Person
+exports.Person = Person;
 exports.validate = validatePerson;
